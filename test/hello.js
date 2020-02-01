@@ -13,8 +13,7 @@ let hello = (name) => {
 let cases = [
     new TestCase(null, "Hello!"),
     new TestCase('', "Hello!"),
-    new TestCase("World", "Hello World!"),
-    new TestCase("a", "b")
+    new TestCase("World", "Hello World!")
 ];
 
 process.exit((new TestRunner(cases, hello)).run());
