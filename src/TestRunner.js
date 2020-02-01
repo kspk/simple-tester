@@ -25,6 +25,7 @@ class TestRunner {
         });
 
         console.log(`Tests: ${passed} passed, ${count} total.`);
+        return count - passed;
     }
 }
 

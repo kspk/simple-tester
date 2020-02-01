@@ -3,9 +3,8 @@
   "type": "module",
   "version": "1.0.0",
   "description": "A smiple javascript test library",
-  "main": "./src/hello.js",
   "scripts": {
-    "test": ""
+    "test": "node ./test/hello.js"
   },
   "author": "Yellow Mango Co",
   "license": "MIT"
