@@ -1,7 +1,8 @@
 {
   "name": "simple-tester",
   "type": "module",
-  "version": "1.0.1",
+  "main": "index.js",
+  "version": "1.0.2",
   "description": "A smiple javascript test library",
   "scripts": {
     "test": "node ./test/hello.js"

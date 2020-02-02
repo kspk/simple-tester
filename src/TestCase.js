@@ -9,4 +9,4 @@ class TestCase {
     }
 }
 
-export default TestCase;
+export { TestCase };

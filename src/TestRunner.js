@@ -1,4 +1,4 @@
-import TestCase from "./TestCase.js";
+import { TestCase } from "./TestCase.js";
 
 class TestRunner {
     cases = [];
@@ -29,4 +29,4 @@ class TestRunner {
     }
 }
 
-export default TestRunner;
+export { TestRunner };

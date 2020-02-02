@@ -1,5 +1,5 @@
-import TestCase from '../src/TestCase.js';
-import TestRunner from '../src/TestRunner.js';
+import { TestCase } from '../src/TestCase.js';
+import { TestRunner } from '../src/TestRunner.js';
 
 let hello = (name) => {
     if(!name) {
