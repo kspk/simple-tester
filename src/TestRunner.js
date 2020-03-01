@@ -1,4 +1,4 @@
-import { TestCase } from "./TestCase.js";
+import { TestCase, TestException } from "./TestCase.js";
 
 class TestRunner {
     cases = [];
@@ -12,15 +12,29 @@ class TestRunner {
     run() {
         let passed = 0;
         let count = 0;
-        (this.cases).forEach(element => {
+        (this.cases).forEach(c => {
             count++;
-            let result = this.method(element.input);
-            console.log(`Test case #${count} - Input: ${JSON.stringify(element.input)}, Expected result: ${JSON.stringify(element.output)}, Actual result: ${JSON.stringify(result)}.`);
-            if(result === element.output) {
-                passed++;
+            let result = null;
+            try
+            {
+                result = this.method(c.input);
+                console.log(`Test case #${count} - Input: ${JSON.stringify(c.input)}, Expected result: ${JSON.stringify(c.output)}, Actual result: ${JSON.stringify(result)}.`);
+                if(result === c.output) {
+                    passed++;
+                }
+                else {
+                    console.log("%cTest Failed.", "color:red");
+                }
             }
-            else {
-                console.log("%cTest Failed.", "color:red");
+            catch(e)
+            {
+                if(c.type === "exception" && c.e == e.message) {
+                    console.log(`Test case #${count} - Input: ${JSON.stringify(c.input)}, Expected result: ${c.exception}, Actual result: ${e}.`);
+                    passed++;
+                }
+                else {
+                    console.log("%cTest Failed.", "color:red");
+                }
             }
         });
 
