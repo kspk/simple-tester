@@ -14,9 +14,8 @@ A very simple javascript library for running unit tests for other javascript mod
     }
 
     let cases = [
-        new TestCase(null, "Hello!"),
-        new TestCase('', "Hello!"),
-        new TestCase("World", "Hello World!")
+        new TestCase("World", "Hello World!"),
+        new TestException(null, "Argument exception")
     ];
 
     (new TestRunner(cases, hello)).run()
