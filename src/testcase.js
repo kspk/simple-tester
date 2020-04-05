@@ -18,10 +18,12 @@ class TestCase {
      * @constructor Creates a new instance of TestCase
      * @param {object} i Prescribed input for the test function
      * @param {object} o Expected output from the test function
+     * @param {array} a (optional) List of arguments for the class/function that the test function tests. 
      */
-    constructor(i, o) {
+    constructor(i, o, a) {
         this.input = i;
         this.output = o;
+        this.args = a;
 
         this.type = "case";
     }
@@ -37,10 +39,12 @@ class TestException {
      * @constructor Creates a new instance of TestException
      * @param {object} i Prescribed input for the test function
      * @param {string} e Expected exception message from the test function
+     * @param {array} a (optional) List of arguments for the class/function that the test function tests. 
      */
-    constructor(i, e) {
+    constructor(i, e, a) {
         this.input = i;
         this.exception = e;
+        this.args = a;
 
         this.type = "exception";
     }
