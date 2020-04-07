@@ -27,22 +27,26 @@ class TestRunner {
     /**
      * Runs the test cases against the specified function
      * returns the count of failed tests, and logs the test runs to console. 
-     * 
+     * @param {string} testname (optional) Label for the test run
      * @returns {number} count of failed test cases. 
      */
-    run() {
+    run(testname) {
         let passed = 0;
         let count = 0;
 
+        console.log("***** Start tests" + (!testname ? "" : " : " + testname) + " ********************");
         /** For each test case execute the tester function delegate */
         (this.cases).forEach(c => {
             count++;
             let result = null;
-            
+            let inputstring = !c.args
+                ? `Input: values - ${JSON.stringify(c.input)}`
+                : `Input: values - ${JSON.stringify(c.input)}; args - ${JSON.stringify(c.args)}`;
+
             try
             { /** Guard against any test failures and allow for checking for exception flows */
                 result = this.method(c.input, c.args);
-                console.log(`Test case #${count} - Input: values - ${JSON.stringify(c.input)}; args - ${JSON.stringify(c.args)}, Expected result: ${JSON.stringify(c.output)}, Actual result: ${JSON.stringify(result)}.`);
+                console.log(`Test case #${count} - ${inputstring}, Expected result: ${JSON.stringify(c.output)}, Actual result: ${JSON.stringify(result)}.`);
                 if(result === c.output) {
                     passed++;
                 }
@@ -54,11 +58,11 @@ class TestRunner {
             { /** Now that there has been an exception, check if this was expected exception, otherwise the test failed. */
                 let m = e.message ? e.message : e;
                 if(c.type === "exception" && c.e == e.message) {
-                    console.log(`Test case #${count} - Input: values - ${JSON.stringify(c.input)}; args - ${JSON.stringify(c.args)}, Expected result: ${c.exception}, Actual result: ${m}.`);
+                    console.log(`Test case #${count} - ${inputstring}, Expected result: ${c.exception}, Actual result: ${m}.`);
                     passed++;
                 }
                 else {
-                    console.log(`Test case #${count} - Input: values - ${JSON.stringify(c.input)}; args - ${JSON.stringify(c.args)}, Expected result: ${c.output}, Actual result: ${m}.`);
+                    console.log(`Test case #${count} - ${inputstring}, Expected result: ${c.output}, Actual result: ${m}.`);
                     console.log("%cTest Failed.", "color:red");
                 }
             }
@@ -66,6 +70,7 @@ class TestRunner {
 
         /** Log the final result and return the failed tests count. */
         console.log(`Tests: ${passed} passed, ${count} total.`);
+        console.log("***** Complete tests" + (!testname ? "" : " : " + testname) + " *****************");
         return count - passed;
     }
 }

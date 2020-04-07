@@ -76,5 +76,5 @@ let cases = [
  * 
  * Check we have the correct count of negative tests.
  */
-let result = (new TestRunner(cases, hello)).run();
+let result = (new TestRunner(cases, hello)).run("Test the tester!");
 process.exit(result == NEGATIVE_TESTS ? 0 : result);

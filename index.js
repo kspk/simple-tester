@@ -1,2 +1,2 @@
-export { TestCase, TestException } from './src/TestCase.js';
-export { TestRunner } from './src/TestRunner.js';
+export { TestCase, TestException } from './src/testcase.js';
+export { TestRunner } from './src/testrunner.js';
