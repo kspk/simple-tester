@@ -34,7 +34,7 @@ class TestRunner {
         let passed = 0;
         let count = 0;
 
-        console.log("***** Start tests" + (!testname ? "" : " : " + testname) + " ********************");
+        console.info("***** Start tests" + (!testname ? "" : " : " + testname) + " ********************");
         /** For each test case execute the tester function delegate */
         (this.cases).forEach(c => {
             count++;
@@ -46,31 +46,32 @@ class TestRunner {
             try
             { /** Guard against any test failures and allow for checking for exception flows */
                 result = this.method(c.input, c.args);
-                console.log(`Test case #${count} - ${inputstring}, Expected result: ${JSON.stringify(c.output)}, Actual result: ${JSON.stringify(result)}.`);
+                console.info(`Test case #${count} - ${inputstring}, Expected result: ${JSON.stringify(c.output)}, Actual result: ${JSON.stringify(result)}.`);
                 if(result === c.output) {
                     passed++;
                 }
                 else {
-                    console.log("%cTest Failed.", "color:red");
+                    console.error("%cTest Failed.", "color:red");
                 }
             }
             catch(e)
             { /** Now that there has been an exception, check if this was expected exception, otherwise the test failed. */
                 let m = e.message ? e.message : e;
-                if(c.type === "exception" && c.e == e.message) {
-                    console.log(`Test case #${count} - ${inputstring}, Expected result: ${c.exception}, Actual result: ${m}.`);
+                if (c.type === "exception" && c.exception === m) {
+                    console.info(`Test case #${count} - ${inputstring}, Expected result: ${c.exception}, Actual result: ${m}.`);
                     passed++;
                 }
                 else {
-                    console.log(`Test case #${count} - ${inputstring}, Expected result: ${c.output}, Actual result: ${m}.`);
-                    console.log("%cTest Failed.", "color:red");
+                    console.info(`Test case #${count} - ${inputstring}, Expected result: ${c.output}, Actual result: ${m}.`);
+                    console.error("%cTest Failed.", "color:red");
+                    console.error('\x1b[31m%s\x1b[0m', "Test Failed.");
                 }
             }
         });
 
         /** Log the final result and return the failed tests count. */
-        console.log(`Tests: ${passed} passed, ${count} total.`);
-        console.log("***** Complete tests" + (!testname ? "" : " : " + testname) + " *****************");
+        console.info(`Tests: ${passed} passed, ${count} total.`);
+        console.info("***** Complete tests" + (!testname ? "" : " : " + testname) + " *****************");
         return count - passed;
     }
 }
